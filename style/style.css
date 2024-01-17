@@ -42,16 +42,24 @@ header {
 #myDynamicTable {
     /* display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
-    width: 90%;
+    width: 100%;
     background-color: chocolate;
     border: 3px double black;
 }
 
 #myDynamicTable > table {
+    margin: 0 auto;
+}
+
+#myDynamicTable tr {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 100%;
-
+    /* padding: 10px; */
+}
+#myDynamicTable td, th{
+    padding: 10px;
+    /* max-width: 100%; */
 }
 
 .grid>h3 {
