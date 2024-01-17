@@ -54,10 +54,11 @@ function addTable() {
   }
   
   function cellClick(points, cell, question, answer) {
-      // console.log(`You have clicked this button for ${points} !`);
+      console.log(`You have clicked this button for ${points} !`);
       cell.textContent = question;
       guess.disabled = false;
       pass.disabled = false;
+
       //player passes
       pass.addEventListener("click", () =>{
         
@@ -81,27 +82,33 @@ function addTable() {
             playerOneScore.textContent = `Player One Score: ${score1}`;
             cell.textContent = "";
             console.log(score1);
+            console.log(answer);
+            entry.value="";
             
           } else {
             score2 += points;
             playerTwoScore.textContent = `Player Two Score: ${score1}`;
             cell.textContent = "";
+            entry.value="";
             
           }
         }  
-         else if (input != answer)
-         {
+        else if (input != answer)
+        {
           if(whosTurn == "Player 1"){
             score1 = score1 - points;
             whosTurn = "Player 2";
+            entry.value="";
           } else {
             score2 = score2 - points;
             whosTurn = "Player 1";
+            entry.value="";
           }
         }
         
       }
       )
+      
   }
 
   //questionActive state=true
