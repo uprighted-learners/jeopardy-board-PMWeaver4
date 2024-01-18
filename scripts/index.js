@@ -42,10 +42,17 @@ function addTable() {
           }else{
             let points = i*100;
         td.appendChild(document.createTextNode(placeholderQuestions[i-1+j*10].category + '\n'+ points));
+        td.setAttribute("class", "playable");
+        td.setAttribute("id", `cell${i}${j}`);
+
         document.body.style = "white-space: pre";
         tr.appendChild(td);
         td.addEventListener("click", ()=>{
+          if(td.className == "playable"){
           cellClick(points, td, placeholderQuestions[i-1+j*10].question, placeholderQuestions[i-1+j*10].answer);
+          } else {
+            console.log("not playable, man");
+          }
         })
       }
     }
@@ -54,7 +61,7 @@ function addTable() {
   }
   
   function cellClick(points, cell, question, answer) {
-      console.log(`You have clicked this button for ${points} !`);
+      
       cell.textContent = question;
       guess.disabled = false;
       pass.disabled = false;
@@ -84,23 +91,25 @@ function addTable() {
             console.log(score1);
             console.log(answer);
             entry.value="";
+            cell.setAttribute("class", "not_playable");
             
           } else {
             score2 += points;
             playerTwoScore.textContent = `Player Two Score: ${score1}`;
             cell.textContent = "";
             entry.value="";
+            cell.setAttribute("class", "not_playable");
             
           }
         }  
         else if (input != answer)
         {
           if(whosTurn == "Player 1"){
-            score1 = score1 - points;
+            score1 -= points;
             whosTurn = "Player 2";
             entry.value="";
           } else {
-            score2 = score2 - points;
+            score2 -= points;
             whosTurn = "Player 1";
             entry.value="";
           }
