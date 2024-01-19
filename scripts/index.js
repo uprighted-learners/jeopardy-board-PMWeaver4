@@ -61,62 +61,88 @@ function addTable() {
   }
   
   function cellClick(points, cell, question, answer) {
-      
+      console.log("insideCellClick", points, cell, question, answer);
       cell.textContent = question;
       guess.disabled = false;
       pass.disabled = false;
-
+      
       //player passes
-      pass.addEventListener("click", () =>{
+      pass.onclick = () => {
         
         if(whosTurn == "Player 1"){
           whosTurn = "Player 2";
           turn.textContent = whosTurn;
+          console.log("inside75pass");
         }
         else {
           whosTurn = "Player 1";
           turn.textContent = whosTurn;
         }
-      });
+      };
       //player guesses
-      guess.addEventListener("click",  ()=>
+      let numberofguesses = 2;
+      guess.onclick =  ()=>
       {//correct answer
         let input = entry.value;
-        console.log(input);
+        console.log(input.length);
+       if (input.length == 0){
+          alert("you need to enter a guess");
+          return;
+        }
         if(input == answer) {
+          console.log("line89?", answer, input);
           if(whosTurn == "Player 1"){
             score1 += points;
             playerOneScore.textContent = `Player One Score: ${score1}`;
             cell.textContent = "";
-            console.log(score1);
-            console.log(answer);
             entry.value="";
             cell.setAttribute("class", "not_playable");
-            
-          } else {
+            console.log(answer);
+          } 
+          else {
             score2 += points;
-            playerTwoScore.textContent = `Player Two Score: ${score1}`;
+            playerTwoScore.textContent = `Player Two Score: ${score2}`;
             cell.textContent = "";
             entry.value="";
-            cell.setAttribute("class", "not_playable");
-            
+            cell.setAttribute("class", "not_playable"); 
+            console.log(answer);
           }
         }  
+        //wrong answer
         else if (input != answer)
-        {
-          if(whosTurn == "Player 1"){
+        { 
+          if(whosTurn == "Player 1" && numberofguesses>0){
             score1 -= points;
+            playerOneScore.textContent = `Player One Score: ${score1}`;
             whosTurn = "Player 2";
             entry.value="";
-          } else {
+            numberofguesses -= 1;
+            console.log(numberofguesses);
+            console.log(answer);
+            
+          } else if (whosTurn == "Player 2" && numberofguesses>0) {
             score2 -= points;
+            playerTwoScore.textContent = `Player Two Score: ${score2}`;
             whosTurn = "Player 1";
             entry.value="";
+            numberofguesses -= 1;
+            console.log(numberofguesses);
+            console.log("player 2 wrong answer");
+            console.log(answer);
+
           }
-        }
+          if (numberofguesses == 0){
+            console.log("GUESS ARE DONE!!!!");
+            cell.setAttribute("class", "not_playable"); 
+            console.log(cell);
+            //reset to 2
+            numberofguesses = 2;
+            
+          }
+        }            
         
       }
-      )
+      
       
   }
 
