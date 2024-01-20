@@ -11,11 +11,13 @@
     <BR/>
     <header>FIRST ROUND</header>
     <!-- Do not change the script source. Allows import/export to work. -->
-    <script src="./scripts/index.js" type="module"></script>
+    <script src="./scripts/index.js" type="module" defer></script>
     <div class="player_turn"><h2>PLAYER TURN</h2></div>
     <div class="grid">
       <div id="myDynamicTable"></div>
-      </div>
+    
+    </div>
+      <h1 class="question_display"></h1>
     <div class="gameplay">
       <input class="entry" type="text"/>
       <div class="guess_pass">
@@ -29,7 +31,10 @@
       <h3 class="player_two_score">Player Two Score: 0</h3>
 
     </div>
-    <div class="buttonbox"><button class="next_round" onclick="location.href='round-2.html'">NEXT ROUND</button></div>
+    <div class="buttonbox">
+      <button class="next_round" onclick="window.location.href='http://127.0.0.1:5500/projects/jeopardy2/round-2.html?player1score=500&player2score=0'">NEXT ROUND</button>
+    </div>
+
     <footer>Footer Site Information</footer>
   </body>
 </html>

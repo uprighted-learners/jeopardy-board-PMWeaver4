@@ -11,6 +11,7 @@ let pass = document.querySelector(".pass");
 let nextRound = document.querySelector(".next_round");
 let playerOneScore = document.querySelector(".player_one_score");
 let playerTwoScore = document.querySelector(".player_two_score");
+let display = document.querySelector(".question_display");
 
 //states
 let  whosTurn = "Player 1";
@@ -57,13 +58,14 @@ function addTable() {
           if(td.className == "playable" && lock==false  && playCount > 29 && score1 < 15000 && score2 < 15000){
           cellClick(points, td, placeholderQuestions[i-1+j*10].question, placeholderQuestions[i-1+j*10].answer);
           console.log(`play count is ${playCount}`);
+
           } else if (lock ==true) {
             alert("You must finish the current question. Take a guess, or pass to the next player.");
 
           } else {
             nextRound.disabled = false;
             alert("Click Next Round for Round 2.");
-            localStorage.setItem("Round","2");
+            
           }
         })
       }
@@ -75,8 +77,8 @@ function addTable() {
   function cellClick(points, cell, question, answer) {
       console.log("insideCellClick", points, cell, question, answer);
       if (lock == false){
-      cell.textContent = question;
-      cell.backgroundColor = "blue";
+      display.textContent = question;
+      cell.style.backgroundColor = "blue";
       lock = true;
        }
       //  else{
@@ -105,7 +107,6 @@ function addTable() {
             playCount--;
             if(playCount == 0){
               nextRound.disabled = false;
-              alert("Click Next Round for Round 2.");
             };
             
           }
@@ -126,7 +127,6 @@ function addTable() {
             playCount--;
             if(playCount == 0){
               nextRound.disabled = false;
-              alert("Click Next Round for Round 2.");
             };
             
           }
@@ -152,9 +152,13 @@ function addTable() {
             console.log(answer);
             lock = false;
             playCount--;
-            if(playCount == 0){
+            if(playCount == 29){
               nextRound.disabled = false;
-              alert("Click Next Round for Round 2.");
+              let A = new URL("http://127.0.0.1:5500/projects/jeopardy2/round-2.html");
+              A.searchParams.append('player1score', score1);
+              A.searchParams.append('player2score', score2);
+              console.log(A.href);
+              nextRound.setAttribute("onclick", A.href);
             };
           } 
           else {
@@ -168,7 +172,7 @@ function addTable() {
             playCount--;
             if(playCount == 0){
               nextRound.disabled = false;
-              alert("Click Next Round for Round 2.");
+              
             };
           }
         }  
@@ -206,7 +210,7 @@ function addTable() {
             playCount--;
             if(playCount == 0){
               nextRound.disabled = false;
-              alert("Click Next Round for Round 2.");
+              
             };
             
           }
