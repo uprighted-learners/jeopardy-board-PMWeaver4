@@ -15,26 +15,46 @@ let display = document.querySelector(".question_display");
 
 
 
-//states
-let  whosTurn = "Player 1";
+//bring values in from url
+let searchScore1 = new URLSearchParams(window.location.search).get("player1score");
+searchScore1 = parseInt(searchScore1);
+let searchScore2 = new URLSearchParams(window.location.search).get("player2score");
+searchScore2 = parseInt(searchScore2);
+let round = new URLSearchParams(window.location.search).get("round");
+round =  parseInt(round);
+
 let score1 = 0;
 let score2 = 0;
+let roundMultiplier = 0
+if (round == 2) {
+  score1 = searchScore1;
+  score2 = searchScore2;
+  roundMultiplier = (round -1) * 5
+}
+playerOneScore.textContent = `Player One Score: ${score1}`;
+playerOneScore.textContent = `Player Two Score: ${score1}`;
+
+//states
+let  whosTurn = "Player 1";
 let lock = false;
 let playCount = 0;
 
 
 
+
+
+
 //create a table
 function addTable() {
-    let myTableDiv = document.getElementById("myDynamicTable");
-  
+  let myTableDiv = document.getElementById("myDynamicTable");
+
     let table = document.createElement('TABLE');
     table.border = '1';
   
     let tableBody = document.createElement('TBODY');
     table.appendChild(tableBody);
 
-    console.log(window.location.pathname);
+    
 
     for (let i = 0; i < 6; i++) {
       let tr = document.createElement('TR');
@@ -50,7 +70,7 @@ function addTable() {
           }else{
             let points = i*100;
             playCount++;
-        td.appendChild(document.createTextNode(placeholderQuestions[i-1+j*10].category + '\n'+ points));
+        td.appendChild(document.createTextNode(placeholderQuestions[i-1 +roundMultiplier+j*10].category + '\n'+ points));
         td.setAttribute("class", "playable");
         td.setAttribute("id", `cell${i}${j}`);
 
@@ -58,14 +78,14 @@ function addTable() {
         tr.appendChild(td);
         td.addEventListener("click", ()=>{
           if(td.className == "playable" && lock==false  && playCount > 0 && score1 < 15000 && score2 < 15000){
-          cellClick(points, td, placeholderQuestions[i-1+j*10].question, placeholderQuestions[i-1+j*10].answer);
+          cellClick(points, td, placeholderQuestions[i-1 +roundMultiplier+j*10].question, placeholderQuestions[i-1+roundMultiplier+j*10].answer);
           console.log(`play count is ${playCount}`);
 
           } else if (lock ==true) {
             alert("You must finish the current question. Take a guess, or pass to the next player.");
 
           } else {
-            // nextRound.disabled = false;
+             nextRound.disabled = false;
             alert("Click Next Round for Round 2.");
             
           }
@@ -76,28 +96,27 @@ function addTable() {
   myTableDiv.appendChild(table);
 }
 
-  function cellClick(points, cell, question, answer) {
-      console.log("insideCellClick", points, cell, question, answer);
-      if (lock == false){
-      display.textContent = question;
-      cell.style.backgroundColor = "blue";
-      lock = true;
-       }
-      //  else{
-      //   alert("You must finish the current question. Take a guess, or pass to the next player.");
-      // }
-      guess.disabled = false;
-      pass.disabled = false;
+function cellClick(points, cell, question, answer) {
+  console.log("insideCellClick", points, cell, question, answer);
+  if (lock == false){
+    display.textContent = question;
+    cell.style.backgroundColor = "blue";
+    lock = true;
+  }
+  //  else{
+    //   alert("You must finish the current question. Take a guess, or pass to the next player.");
+    // }
+    guess.disabled = false;
+    pass.disabled = false;
+    
+    let numberofguesses = 2;
+    //player passes
+    pass.onclick = () => {
       
-      
-      let numberofguesses = 2;
-      //player passes
-      pass.onclick = () => {
-        
-        if(whosTurn == "Player 1"  && numberofguesses>0){
-          whosTurn = "Player 2";
-          turn.textContent = whosTurn;
-          numberofguesses -= 1;
+      if(whosTurn == "Player 1"  && numberofguesses>0){
+        whosTurn = "Player 2";
+        turn.textContent = whosTurn;
+        numberofguesses -= 1;
           if (numberofguesses == 0){
             console.log("GUESS ARE DONE!!!!");
             cell.setAttribute("class", "not_playable"); 
@@ -120,8 +139,7 @@ function addTable() {
             console.log(cell);
             //reset to 2
             numberofguesses = 2;
-            lock = false;
-            playCount--;            
+            lock = false;        
           }
         }
       };
@@ -147,7 +165,6 @@ function addTable() {
             cell.setAttribute("class", "not_playable");
             console.log(answer);
             lock = false;
-            playCount--;
 
           } 
           else {
@@ -158,7 +175,6 @@ function addTable() {
             cell.setAttribute("class", "not_playable"); 
             console.log(answer);
             lock = false;
-            playCount--;
           }
         }  
         //wrong answer
@@ -192,19 +208,20 @@ function addTable() {
             //reset to 2
             numberofguesses = 2;
             lock = false;
-            playCount--;
-           
+            
           }
         }            
         
       }
       
       
+      playCount--;
+      console.log(`again playcount is ${playCount}`);
       if(playCount == 29){
         nextRound.disabled = false;
-        
       };
-  }
+      
+    }
 
 nextRound.onclick = () => {
   console.log("clicked");
@@ -212,6 +229,7 @@ nextRound.onclick = () => {
   let A = new URL("http://127.0.0.1:5500/projects/jeopardy2/round-2.html");
   A.searchParams.append('player1score', score1);
   A.searchParams.append('player2score', score2);
+  A.searchParams.append('round', 2);
   console.log(typeof A, A.href);
   window.location.href = A.href;            
   
