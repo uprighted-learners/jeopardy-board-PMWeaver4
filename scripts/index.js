@@ -21,21 +21,27 @@ searchScore1 = parseInt(searchScore1);
 let searchScore2 = new URLSearchParams(window.location.search).get("player2score");
 searchScore2 = parseInt(searchScore2);
 let round = new URLSearchParams(window.location.search).get("round");
+if(round == "2"){
 round =  parseInt(round);
+}
+console.log(round);
+let player = new URLSearchParams(window.location.search).get("player");
+
 
 let score1 = 0;
 let score2 = 0;
 let roundMultiplier = 0
-if (round == 2) {
+let  whosTurn = "Player 1";
+if (round == 2 || round =='final') {
   score1 = searchScore1;
   score2 = searchScore2;
-  roundMultiplier = (round -1) * 5
+  roundMultiplier = 5;
+  whosTurn = player;
 }
 playerOneScore.textContent = `Player One Score: ${score1}`;
-playerOneScore.textContent = `Player Two Score: ${score1}`;
+playerTwoScore.textContent = `Player Two Score: ${score2}`;
 
 //states
-let  whosTurn = "Player 1";
 let lock = false;
 let playCount = 0;
 
@@ -219,17 +225,25 @@ function cellClick(points, cell, question, answer) {
       console.log(`again playcount is ${playCount}`);
       if(playCount == 29){
         nextRound.disabled = false;
+        console.log(`this is ${round}`);
       };
       
     }
 
 nextRound.onclick = () => {
   console.log("clicked");
-    console.log("inside if");
   let A = new URL("http://127.0.0.1:5500/projects/jeopardy2/round-2.html");
-  A.searchParams.append('player1score', score1);
-  A.searchParams.append('player2score', score2);
   A.searchParams.append('round', 2);
+  console.log(`1inside if ${round}`);
+  if(round==2){
+    
+    A = new URL("http://127.0.0.1:5500/projects/jeopardy2/final-jeopardy.html");
+    A.searchParams.append('round', "final");
+  }
+  
+    A.searchParams.append('player1score', score1);
+    A.searchParams.append('player2score', score2);
+  A.searchParams.append('player', whosTurn);
   console.log(typeof A, A.href);
   window.location.href = A.href;            
   
@@ -244,5 +258,11 @@ function playerTurn() {
 
 }
 
+if (round == 'final')
+{
+  turn.textContent = whosTurn;
+
+}else {
 playerTurn();
 addTable();
+}
