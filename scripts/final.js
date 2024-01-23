@@ -58,11 +58,12 @@ function prompt() {
             } else if (input > score1) {
                 alert(`That wager is too high, you can only wager up to ${score1}`)
             } else {
-                wager1 = input;
+                wager1 = Number(input);
                 console.log("button clicked");
                 console.log(wager1);
                 wager1Entered = true;
                 whosTurn = "Player 2"
+                entry.value = "";
                 // return;
                 prompt();
             }
@@ -77,9 +78,10 @@ function prompt() {
         } else if (input > score2) {
             alert(`That wager is too high, you can only wager up to ${score2}`)
         } else {
-            wager2 = input;
+            wager2 = Number(input);
             whosTurn = "Player 1";
             wager2Entered = true;
+            entry.value = "";
             // return;
             prompt();
         }
@@ -87,6 +89,7 @@ function prompt() {
     }
 } else {
     askFinalQuestion();
+    
 }
 }
 
@@ -95,25 +98,31 @@ function askFinalQuestion() {
     document.body.style = "white-space: pre";
     finalQuestion.textContent = placeholderQuestions[60].question  + "\n" + `${whosTurn} enter your answer.`;
     button.textContent = "Enter Answer";
-    entry.setAttribute("placeholder", `${whosTurn} enter your answer.`) //why doesn't this work?
+    entry.setAttribute("placeholder", `${whosTurn} enter your answer.`);
     button.onclick = () => {
         console.log(placeholderQuestions[60].answer);
         let input = entry.value;
-        if (input.length <= 1){ //would like auto answer not to be 1 lenght
+        if (input.length == 0){
             alert("Please enter an answer.")
-        } else if (player1Answer.length > 1 && player2Answer.length > 1){
-            if (whosTurn == "Player 1") {
+        } else {
+            if (whosTurn == "Player 1" && player1Answer.length == 0) {
             whosTurn = "Player 2";
             player1Answer = input;
+            entry.value = "";
+            askFinalQuestion();
             
-            } else {
+            } else if (whosTurn =="Player 2" && player2Answer.length == 0){
             whosTurn = "Player 1";
             player2Answer = input;
+            entry.value="";
+            askFinalQuestion();
             
              }
-        } else {
-            
+            }
+            if(player1Answer.length > 0 && player2Answer.length >0 )
+            {
             finalQuestion.textContent = placeholderQuestions[60].answer;
+            console.log(player1Answer, player2Answer);
             if(player1Answer == placeholderQuestions[60].answer){
                 score1 += wager1;
             } else {
@@ -124,13 +133,21 @@ function askFinalQuestion() {
             } else {
                 score2 -= wager2;
             }
+            if(score1 > score2){
+                finalQuestion.textContent = "Player 1 wins!"
+            } else if (score2 > score1) {
+                finalQuestion.textContent = "Player 2 wins!"
+            } else {
+                finalQuestion.textContent = "We have a tie."                
+            }
+        }
             
 playerOneScore.textContent = `Player One Score: ${score1}`;
 playerTwoScore.textContent = `Player Two Score: ${score2}`;
 
         }
     }
-}
+
 
 
 prompt();
