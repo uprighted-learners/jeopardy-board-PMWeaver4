@@ -140,6 +140,7 @@ function askFinalQuestion() {
             } else {
                 finalQuestion.textContent = "We have a tie."                
             }
+            entry.setAttribute("placeholder", "The End");
         }
             
 playerOneScore.textContent = `Player One Score: ${score1}`;

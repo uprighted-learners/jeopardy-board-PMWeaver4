@@ -6,7 +6,14 @@ body{
     /* Stylize */
     background-color: honeydew;
     text-decoration-color: blueviolet;
+    background-image: url(../Jeopardy_title.jpg);
+    background-attachment: fixed;
+
+    
 }
+
+
+    
 
 .landing_img {
     display: flex;
@@ -16,6 +23,7 @@ body{
 
 .player_turn, .entry{
     margin: 1em;
+    font-size: 2em;
 }
 
 a{
@@ -35,16 +43,13 @@ button{
 }
 
 header {
-    /* display: flex; */
-    /* justify-content: center; */
-    font-size: 60px;
+    font-size: 4em;
 }
 #myDynamicTable {
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
     width: 100%;
     background-color: chocolate;
     border: 3px double black;
+    
 }
 
 #myDynamicTable > table {
@@ -55,20 +60,13 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 100%;
-    /* padding: 10px; */
+    
 }
 #myDynamicTable td, th{
     padding: 10px;
-    /* max-width: 100%; */
+    
 }
 
-.grid>h3 {
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
-    padding: 1em;
-}
 
 .column_header {
     background-color: lightgrey;
@@ -80,7 +78,7 @@ header {
 }
 .entry {
 padding: 1em;
-margin: 1em;
+/* margin: 1em; */
 }
 .guess_pass {
     display: flex;
@@ -92,14 +90,11 @@ margin: 1em;
     justify-content: space-between;
 }
 
-.next_round{
-    /* display: flex;
-    justify-content: right;
-    align-items: right;
-     */
+.next_round, .play_button{
 
-    /* border: 1em solid red; */
-    PADDING: 1rem;
+    /* PADDING: 10%;
+    margin: 1em; */
+    width: auto;
     
 }
 
@@ -107,22 +102,8 @@ margin: 1em;
     display: flex;
     justify-content: right;
     width: 70%;
-    /* background-color: green; */
+    
 }
-
-/* .final_grid{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-     border: 1px solid red;
-} */
-
-/* .final_grid > h3, .final_grid > input{
-    width: 100%;
-    margin: 1em;
-} */
 
 
 .final_column_header {
@@ -139,17 +120,18 @@ margin: 1em;
     width: 60%;
     height: 200px;
     padding: 1em;
-    /* background-color: grey; */
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    opacity: 0.75;
 
 
     }
 .final_question > p {
     display:flex;
     justify-content: center;
-    /* align-items: center; */
+    font-size: 30px;
 }
 
 .container {

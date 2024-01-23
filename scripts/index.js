@@ -1,6 +1,5 @@
 // Do not change the import statement
 import placeholderQuestions from "./placeholder-questions.js";
-console.log({ placeholderQuestions });
 
 //html selectors
 let turn = document.querySelector(".player_turn");
@@ -23,8 +22,9 @@ searchScore2 = parseInt(searchScore2);
 let round = new URLSearchParams(window.location.search).get("round");
 if(round == "2"){
 round =  parseInt(round);
+} else {
+  round=Number(1);
 }
-console.log(round);
 let player = new URLSearchParams(window.location.search).get("player");
 
 
@@ -83,10 +83,9 @@ function addTable() {
         document.body.style = "white-space: pre";
         tr.appendChild(td);
         td.addEventListener("click", ()=>{
-          if(td.className == "playable" && lock==false  && playCount > 0 && score1 < 15000 && score2 < 15000){
+          if(td.className == "playable" && lock==false  && playCount > 0 && score1 < 15000 * round && score2 < 15000 * round){
           cellClick(points, td, placeholderQuestions[i-1 +roundMultiplier+j*10].question, placeholderQuestions[i-1+roundMultiplier+j*10].answer);
-          console.log(`play count is ${playCount}`);
-
+          
           } else if (lock ==true) {
             alert("You must finish the current question. Take a guess, or pass to the next player.");
 
@@ -103,15 +102,11 @@ function addTable() {
 }
 
 function cellClick(points, cell, question, answer) {
-  console.log("insideCellClick", points, cell, question, answer);
   if (lock == false){
     display.textContent = question;
     cell.style.backgroundColor = "blue";
     lock = true;
   }
-  //  else{
-    //   alert("You must finish the current question. Take a guess, or pass to the next player.");
-    // }
     guess.disabled = false;
     pass.disabled = false;
     
@@ -121,13 +116,11 @@ function cellClick(points, cell, question, answer) {
       
       if(whosTurn == "Player 1"  && numberofguesses>0){
         whosTurn = "Player 2";
-        turn.textContent = whosTurn;
+        turn.textContent = `${whosTurn}, it's your turn.`;
         numberofguesses -= 1;
           if (numberofguesses == 0){
-            console.log("GUESS ARE DONE!!!!");
             cell.setAttribute("class", "not_playable"); 
             cell.textContent = "";
-            console.log(cell);
             //reset to 2
             numberofguesses = 2;
             lock = false;            
@@ -136,13 +129,11 @@ function cellClick(points, cell, question, answer) {
         }
         else if(whosTurn == "Player 2"  && numberofguesses>0){
           whosTurn = "Player 1";
-          turn.textContent = whosTurn;
+          turn.textContent = `${whosTurn}, it's your turn.`;
           numberofguesses -= 1;
           if (numberofguesses == 0){
-            console.log("GUESS ARE DONE!!!!");
             cell.setAttribute("class", "not_playable"); 
             cell.textContent = "";
-            console.log(cell);
             //reset to 2
             numberofguesses = 2;
             lock = false;        
@@ -156,20 +147,17 @@ function cellClick(points, cell, question, answer) {
         
         
         let input = entry.value;
-        console.log(input.length);
         if (input.length == 0){
           alert("you need to enter a guess");
           return;
         }
         if(input == answer) {
-          console.log("line89?", answer, input);
           if(whosTurn == "Player 1"){
             score1 += points;
             playerOneScore.textContent = `Player One Score: ${score1}`;
             cell.textContent = "";
             entry.value="";
             cell.setAttribute("class", "not_playable");
-            console.log(answer);
             lock = false;
 
           } 
@@ -179,7 +167,6 @@ function cellClick(points, cell, question, answer) {
             cell.textContent = "";
             entry.value="";
             cell.setAttribute("class", "not_playable"); 
-            console.log(answer);
             lock = false;
           }
         }  
@@ -190,27 +177,21 @@ function cellClick(points, cell, question, answer) {
             score1 -= points;
             playerOneScore.textContent = `Player One Score: ${score1}`;
             whosTurn = "Player 2";
+            turn.textContent =`${whosTurn}, it's your turn.`;
             entry.value="";
             numberofguesses -= 1;
-            console.log(numberofguesses);
-            console.log(answer);
             
           } else if (whosTurn == "Player 2" && numberofguesses>0) {
             score2 -= points;
             playerTwoScore.textContent = `Player Two Score: ${score2}`;
             whosTurn = "Player 1";
+            turn.textContent =`${whosTurn}, it's your turn.`;
             entry.value="";
-            numberofguesses -= 1;
-            console.log(numberofguesses);
-            console.log("player 2 wrong answer");
-            console.log(answer);
-            
+            numberofguesses -= 1;       
           }
           if (numberofguesses == 0){
-            console.log("GUESS ARE DONE!!!!");
             cell.setAttribute("class", "not_playable"); 
             cell.textContent = "";
-            console.log(cell);
             //reset to 2
             numberofguesses = 2;
             lock = false;
@@ -222,19 +203,15 @@ function cellClick(points, cell, question, answer) {
       
       
       playCount--;
-      console.log(`again playcount is ${playCount}`);
-      if(playCount == 29){
+      if(playCount == 28){
         nextRound.disabled = false;
-        console.log(`this is ${round}`);
       };
       
     }
 
 nextRound.onclick = () => {
-  console.log("clicked");
   let A = new URL("http://127.0.0.1:5500/projects/jeopardy2/round-2.html");
   A.searchParams.append('round', 2);
-  console.log(`1inside if ${round}`);
   if(round==2){
     
     A = new URL("http://127.0.0.1:5500/projects/jeopardy2/final-jeopardy.html");
@@ -244,14 +221,13 @@ nextRound.onclick = () => {
     A.searchParams.append('player1score', score1);
     A.searchParams.append('player2score', score2);
   A.searchParams.append('player', whosTurn);
-  console.log(typeof A, A.href);
   window.location.href = A.href;            
   
 }
   
   //Change heading to indicate which player's turn it is
 function playerTurn() {
-    turn.textContent = whosTurn;
+    turn.textContent =`${whosTurn}, it's your turn.`;
     guess.disabled = true;
     pass.disabled = true;
     nextRound.disabled = true;
