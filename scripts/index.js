@@ -123,7 +123,8 @@ function cellClick(points, cell, question, answer) {
             cell.textContent = "";
             //reset to 2
             numberofguesses = 2;
-            lock = false;            
+            lock = false;        
+            display.textContent = "";    
           }
           
         }
@@ -137,6 +138,7 @@ function cellClick(points, cell, question, answer) {
             //reset to 2
             numberofguesses = 2;
             lock = false;        
+            display.textContent = "";    
           }
         }
       };
@@ -159,6 +161,7 @@ function cellClick(points, cell, question, answer) {
             entry.value="";
             cell.setAttribute("class", "not_playable");
             lock = false;
+            display.textContent = "";    
 
           } 
           else {
@@ -168,6 +171,7 @@ function cellClick(points, cell, question, answer) {
             entry.value="";
             cell.setAttribute("class", "not_playable"); 
             lock = false;
+            display.textContent = "";    
           }
         }  
         //wrong answer
@@ -195,7 +199,7 @@ function cellClick(points, cell, question, answer) {
             //reset to 2
             numberofguesses = 2;
             lock = false;
-            
+            display.textContent = "";    
           }
         }            
         
@@ -203,8 +207,9 @@ function cellClick(points, cell, question, answer) {
       
       
       playCount--;
-      if(playCount == 0 && lock == false){
+      if(playCount == 0){
         nextRound.disabled = false;
+        
       };
       
     }

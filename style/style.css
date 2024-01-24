@@ -4,12 +4,18 @@ body{
     justify-content: center;
     align-items: center;
     /* Stylize */
-    background-color: honeydew;
+    background-color: white;
     text-decoration-color: blueviolet;
     background-image: url(../Jeopardy_title.jpg);
     background-attachment: fixed;
     
     
+    
+}
+.container{
+    width: 100%;
+    background-color: rgb(255 255 255 / 30%);
+    backdrop-filter: opacity(60%);
 }
 
 
@@ -17,7 +23,6 @@ body{
 
 .landing_img {
     display: flex;
-    width: 70%;
     height: 200PX;
 }
 
@@ -78,7 +83,7 @@ header {
 }
 .entry {
 padding: 1em;
-/* margin: 1em; */
+
 }
 .guess_pass {
     display: flex;
@@ -92,8 +97,7 @@ padding: 1em;
 
 .next_round, .play_button{
 
-    /* PADDING: 10%;
-    margin: 1em; */
+    
     width: auto;
     
 }
@@ -106,9 +110,13 @@ padding: 1em;
 }
 
 .question_display {
+    width: 70%;
     color: black;
     background-color: white;
-    opacity: .75
+    opacity: .75;
+    text-wrap: balance;
+    display: flex;
+    justify-content: center;
 }
 
 .final_column_header {
@@ -129,7 +137,7 @@ padding: 1em;
     align-items: center;
     justify-content: center;
     background-color: white;
-    opacity: 0.75;
+    opacity: 0.9;
 
 
     }
