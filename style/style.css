@@ -8,7 +8,7 @@ body{
     text-decoration-color: blueviolet;
     background-image: url(../Jeopardy_title.jpg);
     background-attachment: fixed;
-
+    
     
 }
 
@@ -47,7 +47,7 @@ header {
 }
 #myDynamicTable {
     width: 100%;
-    background-color: chocolate;
+    background-color: orange;
     border: 3px double black;
     
 }
@@ -105,6 +105,11 @@ padding: 1em;
     
 }
 
+.question_display {
+    color: black;
+    background-color: white;
+    opacity: .75
+}
 
 .final_column_header {
     width: 60%;

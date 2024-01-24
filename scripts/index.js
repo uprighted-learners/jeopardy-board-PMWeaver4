@@ -72,7 +72,7 @@ function addTable() {
         if (i==0){
           th.appendChild(document.createTextNode(placeholderQuestions[i+j*10].category));
           tr.appendChild(th);
-            th.style.backgroundColor = "grey";
+            th.style.backgroundColor = "rgb(152, 37, 156)";
           }else{
             let points = i*100;
             playCount++;
@@ -203,14 +203,14 @@ function cellClick(points, cell, question, answer) {
       
       
       playCount--;
-      if(playCount == 28){
+      if(playCount == 0 && lock == false){
         nextRound.disabled = false;
       };
       
     }
 
 nextRound.onclick = () => {
-  // http://127.0.0.1:5500/round2.html?round1&player1score500&player2score500&playerPlayer%202
+  
   let A = `./round-2.html?round=2&player1score=${score1}&player2score=${score2}&player=${whosTurn}`;
   
   if(round==2){
