@@ -1,5 +1,4 @@
 import placeholderQuestions from "./placeholder-questions.js";
-console.log({ placeholderQuestions });
 
 //html selectors
 let turn = document.querySelector(".player_turn");
@@ -26,7 +25,7 @@ let round = new URLSearchParams(window.location.search).get("round");
 if(round == "2"){
 round =  parseInt(round);
 }
-console.log(round);
+
 let player = new URLSearchParams(window.location.search).get("player");
 
 
@@ -53,14 +52,12 @@ function prompt() {
          finalQuestion.textContent = `${whosTurn} can wager up to ${score1}`;
          button.onclick = ()=> {
             let input = entry.value;
-            if(input == 0 && score1 > 0){
-                alert("Please enter a wager");
+            if(input <= 0 && score1 > 0){
+                alert("Please enter a positive wager");
             } else if (input > score1) {
                 alert(`That wager is too high, you can only wager up to ${score1}`)
             } else {
                 wager1 = Number(input);
-                console.log("button clicked");
-                console.log(wager1);
                 wager1Entered = true;
                 whosTurn = "Player 2"
                 entry.value = "";
@@ -73,8 +70,8 @@ function prompt() {
         finalQuestion.textContent = `${whosTurn} can wager up to ${score2}`;
         button.onclick = ()=> {
         let input = entry.value;
-        if(entry.input == 0 && score2 > 0){
-            alert("Please enter a wager");
+        if(input <= 0 && score2 > 0){
+            alert("Please enter a positive wager");
         } else if (input > score2) {
             alert(`That wager is too high, you can only wager up to ${score2}`)
         } else {
@@ -100,7 +97,6 @@ function askFinalQuestion() {
     button.textContent = "Enter Answer";
     entry.setAttribute("placeholder", `${whosTurn} enter your answer.`);
     button.onclick = () => {
-        console.log(placeholderQuestions[60].answer);
         let input = entry.value;
         if (input.length == 0){
             alert("Please enter an answer.")
@@ -122,7 +118,6 @@ function askFinalQuestion() {
             if(player1Answer.length > 0 && player2Answer.length >0 )
             {
             finalQuestion.textContent = placeholderQuestions[60].answer;
-            console.log(player1Answer, player2Answer);
             if(player1Answer == placeholderQuestions[60].answer){
                 score1 += wager1;
             } else {

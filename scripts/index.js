@@ -210,18 +210,16 @@ function cellClick(points, cell, question, answer) {
     }
 
 nextRound.onclick = () => {
-  let A = new URL("http://127.0.0.1:5500/projects/jeopardy2/round-2.html");
-  A.searchParams.append('round', 2);
+  // http://127.0.0.1:5500/round2.html?round1&player1score500&player2score500&playerPlayer%202
+  let A = `./round-2.html?round=2&player1score=${score1}&player2score=${score2}&player=${whosTurn}`;
+  
   if(round==2){
     
-    A = new URL("http://127.0.0.1:5500/projects/jeopardy2/final-jeopardy.html");
-    A.searchParams.append('round', "final");
+    A = `./final-jeopardy.html?round=2&player1score=${score1}&player2score=${score2}&player=${whosTurn}`;
+    
   }
-  
-    A.searchParams.append('player1score', score1);
-    A.searchParams.append('player2score', score2);
-  A.searchParams.append('player', whosTurn);
-  window.location.href = A.href;            
+
+  window.location.href = A;            
   
 }
   
