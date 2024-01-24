@@ -205,11 +205,11 @@ function cellClick(points, cell, question, answer) {
         
       }
       
-      
+      //unlock next round button
       playCount--;
       if(playCount == 0){
         nextRound.disabled = false;
-        
+
       };
       
     }
