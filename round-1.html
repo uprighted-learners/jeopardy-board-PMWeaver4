@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>Jeopardy Round One</title>
     <link href="style/style.css" rel="stylesheet"/>
   </head>
@@ -18,6 +19,7 @@
       <!-- Javascript builds the table -->
       <div id="myDynamicTable"></div>
     </div>
+    <!-- below the table, ability to enter and buttons to guess or pass displayed, all styling handled via class -->
     <h1 class="question_display"></h1>
     <div class="gameplay">
       <input class="entry" type="text"/>
@@ -27,16 +29,17 @@
         
       </div>
     </div>
+    <!-- scores will be affected by the javascript -->
     <div class="player_score">
       <h3 class="player_one_score">Player One Score: 0</h3>
       <h3 class="player_two_score">Player Two Score: 0</h3>
-      
     </div>
+    <!-- the next round button will be "clickable" when the game criteria are met (questions answered or passed on) -->
     <div class="buttonbox">
       <button class="next_round">NEXT ROUND</button>
     </div>
     
-    <footer>Footer Site Information</footer>
+    <footer>This is Jeopardy. Page created by Paul Weaver.</footer>
   </div>
   </body>
 </html>
