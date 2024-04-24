@@ -110,7 +110,7 @@ function addTable() {
             alert(
               "You must finish the current question. Take a guess, or pass to the next player."
             );
-          } else {
+          } else if (playCount == 0) {
             nextRound.disabled = false;
             alert("Click Next Round for Round 2.");
           }
