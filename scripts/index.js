@@ -99,7 +99,7 @@ function addTable() {
             score1 < 15000 * round &&
             score2 < 15000 * round
           ) {
-            //calls upon cellclick function defined below
+            //calls upon cellclick function defined below, get the cell the points and populate it
             cellClick(
               points,
               td,
